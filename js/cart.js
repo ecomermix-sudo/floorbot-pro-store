@@ -6,11 +6,8 @@
 
 let qty = 1;
 
-function formatMoney(n) {
-  return '€' + n.toFixed(2).replace('.', ',');
-}
-
 function initCart() {
+  console.log('[Cart] Inizializzazione con prezzo:', CONFIG.PREZZO);
   updateSummary();
 }
 
@@ -34,6 +31,8 @@ function updateSummary() {
   if (elShip) elShip.textContent = spedizione === 0 ? 'GRATIS' : formatMoney(spedizione);
   if (elTotal) elTotal.textContent = formatMoney(totale);
   if (elShipRow) elShipRow.classList.toggle('shipping-free', spedizione === 0);
+
+  console.log('[Cart] Riepilogo aggiornato — Prezzo:', prezzo, 'Totale:', totale);
 }
 
 function changeQty(delta) {

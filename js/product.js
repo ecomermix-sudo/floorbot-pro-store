@@ -4,29 +4,40 @@
    ============================================================ */
 
 async function loadProduct() {
+  console.log('[FloorBot] Caricamento prodotto... slug:', CONFIG.PRODOTTO_SLUG);
+
   try {
-    const url = CONFIG.SUPABASE_URL + '/rest/v1/prodotti?slug=eq.' + CONFIG.PRODOTTO_SLUG + '&attivo=eq.true&select=*';
+    const url = CONFIG.SUPABASE_URL + '/rest/v1/prodotti?slug=eq.' + encodeURIComponent(CONFIG.PRODOTTO_SLUG) + '&attivo=eq.true&select=*';
+    console.log('[FloorBot] Fetch:', url);
+
     const res = await fetch(url, {
       headers: {
         'apikey': CONFIG.SUPABASE_ANON_KEY,
         'Authorization': 'Bearer ' + CONFIG.SUPABASE_ANON_KEY
       }
     });
+
+    console.log('[FloorBot] Status:', res.status);
+
     if (!res.ok) {
-      console.warn('[Product] Fetch failed:', res.status);
+      console.warn('[FloorBot] Fetch fallito:', res.status, await res.text());
       initWithDefaults();
       return;
     }
+
     const data = await res.json();
+    console.log('[FloorBot] Dati ricevuti:', data);
+
     if (!data || data.length === 0) {
-      console.warn('[Product] Nessun prodotto trovato per slug:', CONFIG.PRODOTTO_SLUG);
+      console.warn('[FloorBot] Nessun prodotto trovato per slug:', CONFIG.PRODOTTO_SLUG);
       initWithDefaults();
       return;
     }
 
     const p = data[0];
+    console.log('[FloorBot] Prodotto trovato:', p.nome, 'Prezzo:', p.prezzo);
 
-    /* --- Popola CONFIG con i dati dal DB --- */
+    /* --- Popola CONFIG --- */
     CONFIG.PRODOTTO_NOME   = p.nome;
     CONFIG.PREZZO          = parseFloat(p.prezzo);
     CONFIG.PREZZO_LISTINO  = p.prezzo_listino ? parseFloat(p.prezzo_listino) : null;
@@ -35,19 +46,26 @@ async function loadProduct() {
     CONFIG.TEMPO_SPEDIZIONE = p.tempo_spedizione || '24-48h';
     CONFIG.STRIPE_PRICE_ID  = p.stripe_price_id || 'price_placeholder';
 
-    /* --- Aggiorna il DOM --- */
+    /* --- Aggiorna DOM --- */
     updateProductDOM(p);
+    console.log('[FloorBot] DOM aggiornato con prezzo:', CONFIG.PREZZO);
 
     /* --- Inizializza carrello --- */
-    if (typeof initCart === 'function') initCart();
+    if (typeof initCart === 'function') {
+      initCart();
+      console.log('[FloorBot] Carrello inizializzato');
+    } else {
+      console.warn('[FloorBot] initCart non trovata — cart.js caricato?');
+    }
 
   } catch (err) {
-    console.warn('[Product] Errore:', err);
+    console.error('[FloorBot] Errore caricamento:', err);
     initWithDefaults();
   }
 }
 
 function initWithDefaults() {
+  console.log('[FloorBot] Fallback a valori di default');
   CONFIG.PRODOTTO_NOME   = 'FloorBot Pro';
   CONFIG.PREZZO          = 79.90;
   CONFIG.PREZZO_LISTINO  = 129.90;
@@ -74,16 +92,21 @@ function updateProductDOM(p) {
   const checkoutImg = document.querySelector('.checkout-product img');
   if (checkoutImg && p.immagine_url) checkoutImg.src = p.immagine_url;
 
-  /* Prezzi */
+  /* Prezzi — hero e checkout */
+  const prezzoVal = parseFloat(p.prezzo);
+  const listinoVal = p.prezzo_listino ? parseFloat(p.prezzo_listino) : null;
+
   document.querySelectorAll('.price-current').forEach(el => {
-    if (p.prezzo) el.textContent = formatMoney(parseFloat(p.prezzo));
+    el.textContent = formatMoney(prezzoVal);
   });
+
   document.querySelectorAll('.price-old').forEach(el => {
-    if (p.prezzo_listino) el.textContent = formatMoney(parseFloat(p.prezzo_listino));
+    if (listinoVal) el.textContent = formatMoney(listinoVal);
   });
+
   document.querySelectorAll('.price-save').forEach(el => {
-    if (p.prezzo && p.prezzo_listino) {
-      const saving = parseFloat(p.prezzo_listino) - parseFloat(p.prezzo);
+    if (listinoVal) {
+      const saving = listinoVal - prezzoVal;
       el.textContent = 'Risparmi €' + saving.toFixed(0);
     }
   });
