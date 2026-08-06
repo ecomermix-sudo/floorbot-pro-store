@@ -1,26 +1,34 @@
 /* ============================================================
    FloorBot Pro — Cart & Checkout
    Tabella: ordini (struttura condivisa — NON MODIFICARE)
+   I dati prodotto vengono caricati dinamicamente da Supabase.
    ============================================================ */
 
 let qty = 1;
-const prezzo = CONFIG.PREZZO;
-const spedizioneBase = CONFIG.COSTO_SPEDIZIONE;
-const sogliaGratis = CONFIG.SOGLIA_SPEDIZIONE_GRATUITA;
 
 function formatMoney(n) {
   return '€' + n.toFixed(2).replace('.', ',');
 }
 
+function initCart() {
+  updateSummary();
+}
+
 function updateSummary() {
+  const prezzo = CONFIG.PREZZO || 79.90;
+  const spedizioneBase = CONFIG.COSTO_SPEDIZIONE || 4.90;
+  const sogliaGratis = CONFIG.SOGLIA_SPEDIZIONE_GRATUITA || 50;
+
   const subtotale = prezzo * qty;
   const spedizione = subtotale >= sogliaGratis ? 0 : spedizioneBase;
   const totale = subtotale + spedizione;
+
   const elPrice = document.getElementById('summaryPrice');
   const elQty = document.getElementById('summaryQty');
   const elShip = document.getElementById('summaryShipping');
   const elTotal = document.getElementById('summaryTotal');
   const elShipRow = elShip ? elShip.parentElement : null;
+
   if (elPrice) elPrice.textContent = formatMoney(prezzo);
   if (elQty) elQty.textContent = qty;
   if (elShip) elShip.textContent = spedizione === 0 ? 'GRATIS' : formatMoney(spedizione);
@@ -159,6 +167,10 @@ async function submitOrder() {
 
   setLoading(true);
 
+  const prezzo = CONFIG.PREZZO || 79.90;
+  const spedizioneBase = CONFIG.COSTO_SPEDIZIONE || 4.90;
+  const sogliaGratis = CONFIG.SOGLIA_SPEDIZIONE_GRATUITA || 50;
+
   const subtotale = prezzo * qty;
   const spedizione = subtotale >= sogliaGratis ? 0 : spedizioneBase;
   const totale = subtotale + spedizione;
@@ -234,7 +246,3 @@ function openCheckout() {
   const el = document.getElementById('checkout');
   if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  updateSummary();
-});
