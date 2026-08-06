@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloorBot Pro | Robot Lavapavimenti Automatico — Pavimenti Lucidi Senza Sforzo</title>
+  <meta name="description" content="Robot lavapavimenti automatico con navigazione intelligente e serbatoio integrato. Pulisce piastrelle, parquet, laminato e gres. Spedizione gratuita sopra 50€.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="deploy-banner" id="deployBanner">
+    ⚠️ <strong>Modalità demo:</strong> il checkout è disattivato perché le Edge Functions non sono ancora deployate su Supabase.
+    <a href="#" onclick="document.getElementById('deployBanner').style.display='none';return false;">Nascondi</a>
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">Floor<span>Bot</span></a>
+      <button class="nav-cta" onclick="openCheckout()">Acquista Ora</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="hero-badge">Navigazione Intelligente &amp; Serbatoio Integrato</span>
+        <h1>Pavimenti impeccabili senza piegarti mai più</h1>
+        <p class="hero-sub">FloorBot Pro lava e asciuga automaticamente ogni tipo di pavimento grazie alla navigazione laser, al serbatoio doppio e alle spazzole rotanti ad alta velocità. Controllalo dall'app o dal telecomando incluso.</p>
+        <div class="hero-price">
+          <span class="price-current">€79,90</span>
+          <span class="price-old">€129,90</span>
+          <span class="price-save">Risparmi €50</span>
+        </div>
+        <button class="hero-cta" onclick="openCheckout()">
+          Acquista Ora — Spedizione Gratis
+        </button>
+      </div>
+      <div class="hero-img">
+        <img src="assets/hero.svg" alt="FloorBot Pro Robot Lavapavimenti">
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item"><div class="trust-icon">🚚</div> Spedizione 24-48 ore</div>
+        <div class="trust-item"><div class="trust-icon">🔒</div> Pagamento Sicuro SSL</div>
+        <div class="trust-item"><div class="trust-icon">✓</div> Garanzia 2 Anni</div>
+        <div class="trust-item"><div class="trust-icon">↩</div> 30 Giorni Soddisfatti</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits" id="benefici">
+    <div class="container">
+      <h2 class="section-title">Perché scegliere un robot lavapavimenti intelligente</h2>
+      <p class="section-sub">Tecnologia di pulizia automatica per ogni tipo di superficie, supportata da sensori avanzati</p>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">🌀</div>
+          <h3>Aspirazione &amp; Lavaggio 2-in-1</h3>
+          <p>Motore da 3000Pa che aspira polvere e detriti mentre le spazzole in microfibra lavano e asciugano in un'unica passata. Pavimento pulito e asciutto in pochi minuti.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🧠</div>
+          <h3>Navigazione Laser Intelligente</h3>
+          <p>Sistema LiDAR che mappa l'intera casa, calcola il percorso ottimale e rileva automaticamente ostacoli e tappeti. Non perde mai un centimetro.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">📱</div>
+          <h3>Telecomando + App</h3>
+          <p>Controlla FloorBot dal divano con il telecomando incluso o tramite l'app Wi-Fi. Avvia, metti in pausa, programma le pulizie — tutto a distanza.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏠</div>
+          <h3>Adatto a Ogni Pavimento</h3>
+          <p>Funziona su piastrelle, gres porcellanato, parquet, laminato, marmo e linoleum. I sensori rilevano il tipo di superficie e regolano automaticamente potenza e umidità.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🔋</div>
+          <h3>Batteria a Lunga Durata</h3>
+          <p>Autonomia fino a 120 minuti su una singola carica. Quando la batteria si scarica, FloorBot torna automaticamente alla base di ricarica e riprende da dove aveva lasciato.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🎁</div>
+          <h3>Garanzia Estesa 2 Anni</h3>
+          <p>Copertura completa su tutti i componenti. Inoltre, se non sei soddisfatto entro 30 giorni, rimborso integrale senza domande.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="description" id="descrizione">
+    <div class="container">
+      <div class="desc-grid">
+        <div class="desc-content">
+          <h2>Tecnologia di pulizia avanzata per pavimenti sempre perfetti</h2>
+          <p>FloorBot Pro utilizza un sistema combinato di aspirazione potente e spazzole rotanti in microfibra ad alta densità per rimuovere sporco, polvere, peli di animali e macchie ostinate in un'unica passata. Il serbatoio doppio separa acqua pulita da quella sporca per una pulizia igienica.</p>
+          <p>Il motore brushless da 80W garantisce aspirazione costante e silenziosa. Il serbatoio d'acqua da 300ml nebulizza detergente in modo uniforme, evitando aloni e striature su ogni superficie.</p>
+          <ul>
+            <li>Aspirazione 3000Pa con 4 livelli di potenza</li>
+            <li>3 modalità di pulizia: automatica, bordi, spot</li>
+            <li>Spazzole in microfibra lavabili e riutilizzabili</li>
+            <li>Serbatoio doppio: 300ml acqua pulita + 250ml sporca</li>
+          </ul>
+        </div>
+        <div class="desc-img">
+          <img src="assets/tecnologia.svg" alt="Tecnologia Pulizia Pavimenti">
+        </div>
+      </div>
+      <div class="desc-grid reverse">
+        <div class="desc-content">
+          <h2>Design compatto e facile da usare</h2>
+          <p>Con un'altezza di soli 7,5 cm, FloorBot Pro scorre facilmente sotto divani, letti e mobili. Le dimensioni compatte (32 × 32 cm) lo rendono maneggevole in ogni ambiente, dai piccoli monolocali alle grandi ville.</p>
+          <p>Il telecomando intuitivo permette di controllare ogni movimento: avvio, pausa, cambio direzione, cambio modalità. L'app gratuita aggiunge la programmazione timer, la mappatura multi-stanza e il monitoraggio del percorso in tempo reale.</p>
+          <ul>
+            <li>Altezza ultra-sottile: solo 7,5 cm</li>
+            <li>Base di ricarica automatica inclusa</li>
+            <li>Telecomando RF + App Wi-Fi</li>
+            <li>Conformità CE e certificazione sicurezza</li>
+          </ul>
+        </div>
+        <div class="desc-img">
+          <img src="assets/design.svg" alt="Design Compatto">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="container">
+      <h2 class="section-title">FloorBot Pro in azione</h2>
+      <p class="section-sub">Esplora il robot da ogni angolazione</p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="assets/gallery1.svg" alt="FloorBot su pavimento">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/gallery2.svg" alt="FloorBot con telecomando">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/hero.svg" alt="Dettaglio FloorBot">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="recensioni">
+    <div class="container">
+      <h2 class="section-title">Cosa dicono i nostri clienti</h2>
+      <p class="section-sub">Feedback autentici da chi ha integrato FloorBot Pro nella propria routine</p>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Ho due gatti e il pavimento era sempre pieno di peli. Con FloorBot Pro lo accendo la mattina e torno a casa con i pavimenti perfetti. Il parquet non ha più graffi e resta lucido."</p>
+          <div class="review-author">Marco T., 52 anni</div>
+          <div class="review-verified">✓ Acquisto verificato</div>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Lo uso su piastrelle della cucina e gres del soggiorno. Passa sotto il divano senza problemi e la base di ricarica è comodissima. Ottimo rapporto qualità-prezzo."</p>
+          <div class="review-author">Anna B., 41 anni</div>
+          <div class="review-verified">✓ Acquisto verificato</div>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Regalato a mia madre che non può più piegarsi. Ora programma la pulizia ogni giorno alle 10:00 e il pavimento è sempre impeccabile. L'app è semplicissima da usare."</p>
+          <div class="review-author">Luca R., 35 anni</div>
+          <div class="review-verified">✓ Acquisto verificato</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 class="section-title">Domande Frequenti</h2>
+      <p class="section-sub">Tutto quello che devi sapere prima dell'acquisto</p>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Funziona su parquet e laminato?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">Sì. FloorBot Pro è dotato di sensori che rilevano il tipo di pavimento e regolano automaticamente la quantità d'acqua e la potenza delle spazzole. Il parquet e il laminato vengono trattati con la modalità delicata per evitare graffi e eccesso di umidità.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Passa sopra i tappeti?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">Sì, FloorBot Pro rileva automaticamente i tappeti e aumenta la potenza di aspirazione per pulirli a fondo. Se il tappeto è troppo spesso o con frange, puoi impostare zone vietate dall'app per evitare che il robot vi acceda.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Quanto tempo ci vuole per pulire un appartamento?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">Un appartamento di 80 m² viene pulito in circa 45-60 minuti in modalità automatica. Il tempo varia in base al livello di sporco e alla disposizione dei mobili. L'autonomia di 120 minuti copre comodamente superfici fino a 150 m².</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Posso programmare le pulizie quando non sono in casa?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">Assolutamente sì. Tramite l'app Wi-Fi puoi programmare fino a 7 sessioni settimanali, scegliendo giorno, ora e modalità di pulizia. FloorBot partirà automaticamente, pulirà e tornerà alla base di ricarica senza alcun intervento.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Quali garanzie offrite?</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">FloorBot Pro è coperto da garanzia commerciale di 2 anni su tutti i componenti elettronici e meccanici. Inoltre, se non sei soddisfatto entro 30 giorni dall'acquisto, offriamo rimborso integrale senza necessità di motivazione.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="checkout-section" id="checkout">
+    <div class="container">
+      <div class="checkout-grid">
+        <div class="checkout-product">
+          <img src="assets/hero.svg" alt="FloorBot Pro">
+          <h3>FloorBot Pro — Robot Lavapavimenti Automatico</h3>
+          <div class="hero-price" style="justify-content:center;margin:10px 0;">
+            <span class="price-current">€79,90</span>
+            <span class="price-old">€129,90</span>
+          </div>
+          <p style="text-align:center;color:var(--text-light);font-size:0.88rem;">Spedizione 24-48h • Garanzia 2 anni</p>
+          <div class="guarantee-box">
+            <div class="icon">🛡</div>
+            <h4>Garanzia Soddisfatti o Rimborsati</h4>
+            <p>30 giorni per provare senza rischi</p>
+          </div>
+        </div>
+
+        <div class="checkout-form">
+          <h2>Completa il tuo ordine</h2>
+          <p>Inserisci i dati di spedizione. Pagamento sicuro con Stripe.</p>
+
+          <div class="alert error" id="alertBox">
+            <span>⚠</span> <span id="alertMsg"></span>
+          </div>
+
+          <div id="orderSavedBanner" class="order-saved-banner">
+            <span class="icon">✓</span>
+            <span>Ordine salvato con successo! Ti stiamo reindirizzando al pagamento sicuro...</span>
+          </div>
+
+          <div class="form-group">
+            <label>Quantità</label>
+            <div class="qty-selector">
+              <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+              <input type="number" class="qty-input" id="qty" value="1" min="1" max="10" readonly>
+              <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome</label>
+              <input type="text" id="nome" placeholder="Mario" required>
+            </div>
+            <div class="form-group">
+              <label>Cognome</label>
+              <input type="text" id="cognome" placeholder="Rossi" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="email" placeholder="mario@email.it" required>
+            </div>
+            <div class="form-group">
+              <label>Telefono</label>
+              <input type="tel" id="telefono" placeholder="333 123 4567">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Indirizzo</label>
+            <input type="text" id="indirizzo" placeholder="Via Roma 123" required>
+          </div>
+
+          <div class="form-row three">
+            <div class="form-group">
+              <label>Città</label>
+              <input type="text" id="citta" placeholder="Milano" required>
+            </div>
+            <div class="form-group">
+              <label>CAP</label>
+              <input type="text" id="cap" placeholder="20100" required>
+            </div>
+            <div class="form-group">
+              <label>Provincia</label>
+              <input type="text" id="provincia" placeholder="MI" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Note per la spedizione (opzionale)</label>
+            <textarea id="note" rows="2" placeholder="Campanello, piano, ecc."></textarea>
+          </div>
+
+          <div class="order-summary">
+            <div class="summary-row">
+              <span>Prezzo unitario</span>
+              <span id="summaryPrice">€79,90</span>
+            </div>
+            <div class="summary-row">
+              <span>Quantità</span>
+              <span id="summaryQty">1</span>
+            </div>
+            <div class="summary-row">
+              <span>Spedizione</span>
+              <span id="summaryShipping">€4,90</span>
+            </div>
+            <div class="summary-row total">
+              <span>Totale</span>
+              <span id="summaryTotal">€84,80</span>
+            </div>
+          </div>
+
+          <button type="button" class="submit-btn" id="submitBtn" onclick="submitOrder()">
+            <span class="spinner" id="spinner"></span>
+            <span id="btnText">Procedi al Pagamento →</span>
+          </button>
+          <div class="secure-note">
+            🔒 Pagamento crittografato SSL • Dati protetti da Stripe
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo">Floor<span>Bot</span></a>
+          <p>Dispositivi intelligenti per la pulizia della casa. Tecnologia automatica, design italiano, risultati professionali.</p>
+        </div>
+        <div>
+          <h4>Prodotto</h4>
+          <a href="/#benefici">Benefici</a>
+          <a href="/#descrizione">Tecnologia</a>
+          <a href="/#recensioni">Recensioni</a>
+          <a href="/#faq">FAQ</a>
+        </div>
+        <div>
+          <h4>Supporto</h4>
+          <a href="contatti.html">Contattaci</a>
+          <a href="spedizioni.html">Spedizioni</a>
+          <a href="resi.html">Resi e Rimborsi</a>
+          <a href="guida.html">Guida all'uso</a>
+        </div>
+        <div>
+          <h4>Legale</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="termini.html">Termini e Condizioni</a>
+          <a href="cookie.html">Cookie Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 FloorBot. Tutti i diritti riservati. P.IVA IT00000000000
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

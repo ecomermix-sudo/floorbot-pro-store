@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ordine Confermato | FloorBot Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .success-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #f0f9ff 0%, #fff 100%); padding: 40px 20px; }
+    .success-card { background: #fff; padding: 56px; border-radius: 20px; box-shadow: 0 12px 48px rgba(15,23,42,0.06); text-align: center; max-width: 560px; width: 100%; border: 1px solid #e2e8f0; }
+    .success-icon { width: 72px; height: 72px; background: #d1fae5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 24px; }
+    .success-card h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; color: #0f172a; letter-spacing: -0.5px; }
+    .success-card p { color: #64748b; margin-bottom: 8px; font-size: 1rem; line-height: 1.6; }
+    .success-card .order-id { background: #f1f5f9; padding: 10px 18px; border-radius: 10px; font-family: ui-monospace, monospace; font-size: 0.88rem; margin: 18px 0; display: inline-block; color: #334155; border: 1px solid #e2e8f0; }
+    .success-card .cta { display: inline-block; background: #0ea5e9; color: #fff; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 20px; transition: all 0.25s ease; }
+    .success-card .cta:hover { background: #0284c7; transform: translateY(-1px); }
+    .next-steps { margin-top: 28px; text-align: left; }
+    .next-steps h3 { font-size: 1rem; margin-bottom: 14px; color: #0f172a; font-weight: 700; }
+    .next-steps ul { list-style: none; }
+    .next-steps li { padding: 7px 0; padding-left: 28px; position: relative; color: #475569; font-size: 0.92rem; }
+    .next-steps li::before { content: ""; position: absolute; left: 0; top: 10px; width: 16px; height: 16px; background: #d1fae5; border-radius: 50%; }
+    .next-steps li::after { content: "✓"; position: absolute; left: 3px; top: 5px; color: #10b981; font-weight: 800; font-size: 0.7rem; }
+    @media (max-width: 600px) { .success-card { padding: 36px 24px; } }
+  </style>
+</head>
+<body>
+  <div class="success-page">
+    <div class="success-card">
+      <div class="success-icon">🎉</div>
+      <h1>Grazie per il tuo ordine</h1>
+      <p>Abbiamo ricevuto il pagamento con successo.</p>
+      <p>Riceverai a breve un'email di conferma con tutti i dettagli.</p>
+      <div class="order-id" id="orderRef">Ordine: <span id="sessionId">...</span></div>
+
+      <div class="next-steps">
+        <h3>Cosa succede ora:</h3>
+        <ul>
+          <li>Prepariamo il tuo FloorBot Pro per la spedizione</li>
+          <li>Riceverai l'email di conferma entro 5 minuti</li>
+          <li>La spedizione partirà entro 24-48 ore lavorative</li>
+          <li>Ti invieremo il codice tracking non appena disponibile</li>
+        </ul>
+      </div>
+
+      <a href="/" class="cta">← Torna al sito</a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id') || params.get('order_id');
+    if (sessionId) {
+      document.getElementById('sessionId').textContent = sessionId.substring(0, 20) + '...';
+    } else {
+      document.getElementById('orderRef').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
