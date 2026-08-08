@@ -1,13 +1,11 @@
 /* ============================================================
    FloorBot Pro — Cart & Checkout
    Tabella: ordini (struttura condivisa — NON MODIFICARE)
-   I dati prodotto vengono caricati dinamicamente da Supabase.
    ============================================================ */
 
 let qty = 1;
 
 function initCart() {
-  console.log('[Cart] Inizializzazione con prezzo:', CONFIG.PREZZO);
   updateSummary();
 }
 
@@ -31,8 +29,6 @@ function updateSummary() {
   if (elShip) elShip.textContent = spedizione === 0 ? 'GRATIS' : formatMoney(spedizione);
   if (elTotal) elTotal.textContent = formatMoney(totale);
   if (elShipRow) elShipRow.classList.toggle('shipping-free', spedizione === 0);
-
-  console.log('[Cart] Riepilogo aggiornato — Prezzo:', prezzo, 'Totale:', totale);
 }
 
 function changeQty(delta) {
