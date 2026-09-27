@@ -1,5 +1,5 @@
 /* ============================================================
-   FloorBot Pro — Cart & Checkout
+   DermaGlow Pro — Cart & Checkout
    Tabella: ordini (struttura condivisa — NON MODIFICARE)
    ============================================================ */
 
@@ -10,7 +10,7 @@ function initCart() {
 }
 
 function updateSummary() {
-  const prezzo = CONFIG.PREZZO || 79.90;
+  const prezzo = CONFIG.PREZZO || 89.9;
   const spedizioneBase = CONFIG.COSTO_SPEDIZIONE || 4.90;
   const sogliaGratis = CONFIG.SOGLIA_SPEDIZIONE_GRATUITA || 50;
 
@@ -79,8 +79,13 @@ function setLoading(loading) {
   if (txt) txt.textContent = loading ? 'Elaborazione...' : 'Procedi al Pagamento →';
 }
 
+/* ============================================================
+   VALIDAZIONE
+   ============================================================ */
+
 function validateEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (email.length > 100) return false;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
 }
 
 function validateCAP(cap) {
@@ -88,7 +93,32 @@ function validateCAP(cap) {
 }
 
 function validatePhone(phone) {
-  return phone.length >= 8 && /[0-9]/.test(phone);
+  const clean = phone.replace(/[\s.\-()]/g, '');
+  if (!/^\+?\d+$/.test(clean)) return false;
+  const digits = clean.replace(/\D/g, '');
+  return digits.length >= 8 && digits.length <= 15;
+}
+
+function validateNome(val) {
+  if (val.length < 2 || val.length > 50) return false;
+  if (/\d/.test(val)) return false;
+  return /[a-zA-ZÀ-ÿ]/.test(val);
+}
+
+function validateCitta(val) {
+  if (val.length < 2 || val.length > 50) return false;
+  if (/\d/.test(val)) return false;
+  return /[a-zA-ZÀ-ÿ]/.test(val);
+}
+
+function validateIndirizzo(val) {
+  if (val.length < 5 || val.length > 100) return false;
+  if (!/[a-zA-ZÀ-ÿ]/.test(val)) return false;
+  return true;
+}
+
+function validateProvincia(val) {
+  return /^[A-Za-z]{2}$/.test(val);
 }
 
 function getFormData() {
@@ -100,26 +130,49 @@ function getFormData() {
     indirizzo: document.getElementById('indirizzo')?.value.trim() || '',
     citta: document.getElementById('citta')?.value.trim() || '',
     cap: document.getElementById('cap')?.value.trim() || '',
-    provincia: document.getElementById('provincia')?.value.trim() || '',
+    provincia: document.getElementById('provincia')?.value.trim().toUpperCase() || '',
     note: document.getElementById('note')?.value.trim() || '',
   };
 }
 
 function validateForm(data) {
-  if (!data.nome || !data.cognome || !data.email || !data.indirizzo || !data.citta || !data.cap || !data.provincia) {
+  if (!data.nome || !data.cognome || !data.email || !data.telefono ||
+      !data.indirizzo || !data.citta || !data.cap || !data.provincia) {
     return 'Compila tutti i campi obbligatori.';
   }
+  if (!validateNome(data.nome)) {
+    return 'Il nome deve avere tra 2 e 50 caratteri e non contenere numeri.';
+  }
+  if (!validateNome(data.cognome)) {
+    return 'Il cognome deve avere tra 2 e 50 caratteri e non contenere numeri.';
+  }
   if (!validateEmail(data.email)) {
-    return 'Inserisci un indirizzo email valido.';
+    return 'Inserisci un indirizzo email valido (max 100 caratteri).';
+  }
+  if (!validatePhone(data.telefono)) {
+    return 'Inserisci un numero di telefono valido (8-15 cifre).';
+  }
+  if (!validateIndirizzo(data.indirizzo)) {
+    return 'Inserisci un indirizzo valido (5-100 caratteri, deve contenere almeno una lettera).';
+  }
+  if (!validateCitta(data.citta)) {
+    return 'La città deve avere tra 2 e 50 caratteri e non contenere numeri.';
   }
   if (!validateCAP(data.cap)) {
     return 'Il CAP deve essere composto da 5 cifre.';
   }
-  if (data.telefono && !validatePhone(data.telefono)) {
-    return 'Inserisci un numero di telefono valido.';
+  if (!validateProvincia(data.provincia)) {
+    return 'La provincia deve essere di 2 lettere (es. RM, MI, NA).';
+  }
+  if (data.note && data.note.length > 500) {
+    return 'Le note non possono superare i 500 caratteri.';
   }
   return null;
 }
+
+/* ============================================================
+   SALVATAGGIO ORDINE
+   ============================================================ */
 
 async function saveOrderDirectToSupabase(orderData) {
   try {
@@ -162,7 +215,7 @@ async function submitOrder() {
 
   setLoading(true);
 
-  const prezzo = CONFIG.PREZZO || 79.90;
+  const prezzo = CONFIG.PREZZO || 89.9;
   const spedizioneBase = CONFIG.COSTO_SPEDIZIONE || 4.90;
   const sogliaGratis = CONFIG.SOGLIA_SPEDIZIONE_GRATUITA || 50;
 
