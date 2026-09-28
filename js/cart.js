@@ -1,6 +1,5 @@
 /* ============================================================
-   DermaGlow Pro — Cart & Checkout
-   Tabella: ordini (struttura condivisa — NON MODIFICARE)
+   Cart & Checkout — versione con spedizione fissa
    ============================================================ */
 
 let qty = 1;
@@ -11,11 +10,9 @@ function initCart() {
 
 function updateSummary() {
   const prezzo = CONFIG.PREZZO || 89.9;
-  const spedizioneBase = CONFIG.COSTO_SPEDIZIONE || 4.90;
-  const sogliaGratis = CONFIG.SOGLIA_SPEDIZIONE_GRATUITA || 50;
+  const spedizione = CONFIG.COSTO_SPEDIZIONE || 4.90;
 
   const subtotale = prezzo * qty;
-  const spedizione = subtotale >= sogliaGratis ? 0 : spedizioneBase;
   const totale = subtotale + spedizione;
 
   const elPrice = document.getElementById('summaryPrice');
@@ -26,9 +23,9 @@ function updateSummary() {
 
   if (elPrice) elPrice.textContent = formatMoney(prezzo);
   if (elQty) elQty.textContent = qty;
-  if (elShip) elShip.textContent = spedizione === 0 ? 'GRATIS' : formatMoney(spedizione);
+  if (elShip) elShip.textContent = formatMoney(spedizione);
   if (elTotal) elTotal.textContent = formatMoney(totale);
-  if (elShipRow) elShipRow.classList.toggle('shipping-free', spedizione === 0);
+  if (elShipRow) elShipRow.classList.remove('shipping-free');
 }
 
 function changeQty(delta) {
@@ -64,7 +61,7 @@ function showSavedBanner(msg) {
   if (box) box.style.display = 'none';
   if (savedBanner) {
     const span = savedBanner.querySelector('span:last-child');
-    if (span) span.textContent = msg || 'Ordine ricevuto e salvato! Ti contatteremo per completare il pagamento.';
+    if (span) span.textContent = msg || 'Ordine ricevuto e salvato!';
     savedBanner.classList.add('visible');
   }
 }
@@ -140,33 +137,15 @@ function validateForm(data) {
       !data.indirizzo || !data.citta || !data.cap || !data.provincia) {
     return 'Compila tutti i campi obbligatori.';
   }
-  if (!validateNome(data.nome)) {
-    return 'Il nome deve avere tra 2 e 50 caratteri e non contenere numeri.';
-  }
-  if (!validateNome(data.cognome)) {
-    return 'Il cognome deve avere tra 2 e 50 caratteri e non contenere numeri.';
-  }
-  if (!validateEmail(data.email)) {
-    return 'Inserisci un indirizzo email valido (max 100 caratteri).';
-  }
-  if (!validatePhone(data.telefono)) {
-    return 'Inserisci un numero di telefono valido (8-15 cifre).';
-  }
-  if (!validateIndirizzo(data.indirizzo)) {
-    return 'Inserisci un indirizzo valido (5-100 caratteri, deve contenere almeno una lettera).';
-  }
-  if (!validateCitta(data.citta)) {
-    return 'La città deve avere tra 2 e 50 caratteri e non contenere numeri.';
-  }
-  if (!validateCAP(data.cap)) {
-    return 'Il CAP deve essere composto da 5 cifre.';
-  }
-  if (!validateProvincia(data.provincia)) {
-    return 'La provincia deve essere di 2 lettere (es. RM, MI, NA).';
-  }
-  if (data.note && data.note.length > 500) {
-    return 'Le note non possono superare i 500 caratteri.';
-  }
+  if (!validateNome(data.nome)) return 'Il nome deve avere tra 2 e 50 caratteri e non contenere numeri.';
+  if (!validateNome(data.cognome)) return 'Il cognome deve avere tra 2 e 50 caratteri e non contenere numeri.';
+  if (!validateEmail(data.email)) return 'Inserisci un indirizzo email valido (max 100 caratteri).';
+  if (!validatePhone(data.telefono)) return 'Inserisci un numero di telefono valido (8-15 cifre).';
+  if (!validateIndirizzo(data.indirizzo)) return 'Inserisci un indirizzo valido (5-100 caratteri, almeno una lettera).';
+  if (!validateCitta(data.citta)) return 'La città deve avere tra 2 e 50 caratteri e non contenere numeri.';
+  if (!validateCAP(data.cap)) return 'Il CAP deve essere composto da 5 cifre.';
+  if (!validateProvincia(data.provincia)) return 'La provincia deve essere di 2 lettere (es. RM, MI, NA).';
+  if (data.note && data.note.length > 500) return 'Le note non possono superare i 500 caratteri.';
   return null;
 }
 
@@ -216,11 +195,9 @@ async function submitOrder() {
   setLoading(true);
 
   const prezzo = CONFIG.PREZZO || 89.9;
-  const spedizioneBase = CONFIG.COSTO_SPEDIZIONE || 4.90;
-  const sogliaGratis = CONFIG.SOGLIA_SPEDIZIONE_GRATUITA || 50;
+  const spedizione = CONFIG.COSTO_SPEDIZIONE || 4.90;
 
   const subtotale = prezzo * qty;
-  const spedizione = subtotale >= sogliaGratis ? 0 : spedizioneBase;
   const totale = subtotale + spedizione;
   const utmParams = new URLSearchParams(window.location.search);
 
